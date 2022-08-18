@@ -1,14 +1,34 @@
 import './App.css'
-import { HashRouter, NavLink, Routes, Route } from 'react-router-dom'
+import {
+  HashRouter,
+  NavLink,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom'
 
 const Home = () => {
   return <p>這是首頁</p>
 }
 const Todo = () => {
-  return <p>這是 Todo 頁面</p>
+  return (
+    <>
+      <p>這是 Todo 頁面</p>
+      <Logout />
+    </>
+  )
 }
 const Login = () => {
   return <p>這是登入頁面</p>
+}
+
+const Logout = () => {
+  const navigate = useNavigate()
+  return (
+    <button onClick={() => navigate('/login')} style={{ padding: '1rem' }}>
+      Logout
+    </button>
+  )
 }
 const Register = () => {
   return <p>這是註冊頁面</p>
