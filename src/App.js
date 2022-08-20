@@ -5,6 +5,8 @@ import {
   Routes,
   Route,
   useNavigate,
+  useParams,
+  Outlet,
 } from 'react-router-dom'
 
 const Home = () => {
@@ -34,6 +36,38 @@ const Register = () => {
   return <p>這是註冊頁面</p>
 }
 
+const Post = () => {
+  const id = [123, 456, 789, 111, 222, 333]
+  return (
+    <>
+      <p>這是 Post 頁面</p>
+      <div
+        style={{
+          display: 'flex',
+        }}
+      >
+        {id.map((item, i) => {
+          return (
+            <>
+              {
+                <NavLink key={i} to={`/post/post${item}`}>
+                  <p style={{ marginRight: '1rem' }}>Post {item} 詳細頁面</p>
+                </NavLink>
+              }
+            </>
+          )
+        })}
+      </div>
+      <Outlet />
+    </>
+  )
+}
+
+const PostId = () => {
+  const { postId } = useParams()
+  return <p>Post: {postId}</p>
+}
+
 function App() {
   return (
     <div className='container'>
@@ -51,6 +85,9 @@ function App() {
           <NavLink to='/todo'>
             <p>Todo 頁面</p>
           </NavLink>
+          <NavLink to='/post'>
+            <p>Post 詳細頁面</p>
+          </NavLink>
         </div>
         {/* Routes, Route 練習區 */}
         <Routes>
@@ -58,6 +95,9 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/todo' element={<Todo />} />
+          <Route path='/post' element={<Post />}>
+            <Route path=':postId' element={<PostId />} />
+          </Route>
         </Routes>
         {/* 練習區 */}
       </HashRouter>
